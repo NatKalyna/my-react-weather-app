@@ -1,0 +1,11 @@
+.weather-forecast {
+  margin-top: 30px;
+}
+
+.future-weather li {
+  list-style-type: none;
+}
+
+.icon {
+  font-size: 30px;
+}
