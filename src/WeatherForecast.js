@@ -1,53 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import FutureWeather from "./FutureWeather";
 
-function WeatherForecast() {
-  return (
-    <div className="weather-forecast">
-      <div className="row">
-        <div class="col">
-          <FutureWeather
-            day="Saturday"
-            icon="🌞"
-            daytemperature={28}
-            nighttemperature={14}
-          />
-        </div>
-        <div class="col">
-          <FutureWeather
-            day="Sunday"
-            icon="🌞"
-            daytemperature={25}
-            nighttemperature={13}
-          />
-        </div>
-        <div class="col">
-          <FutureWeather
-            day="Monday"
-            icon="🌤"
-            daytemperature={29}
-            nighttemperature={17}
-          />
-        </div>
-        <div class="col">
-          <FutureWeather
-            day="Tuesday"
-            icon="🌦"
-            daytemperature={32}
-            nighttemperature={18}
-          />
-        </div>
-        <div class="col">
-          <FutureWeather
-            day="Wednesday"
-            icon="⛈"
-            daytemperature={33}
-            nighttemperature={19}
-          />
+function WeatherForecast(props) {
+  const [forecastLoaded, setLoadedForecast] = useState(false);
+  const [forecastData, setForecastData] = useState(null);
+
+  useEffect(() => {
+    setLoadedForecast(false);
+  }, [props.cityForecast]);
+
+  function showForecast(response) {
+    setForecastData(response.data.daily);
+    setLoadedForecast(true);
+  }
+
+  if (forecastLoaded) {
+    return (
+      <div className="weather-forecast">
+        <div className="row">
+          <div className="col">
+            <FutureWeather data={forecastData[0]} />
+          </div>
+          <div className="col">
+            <FutureWeather data={forecastData[1]} />
+          </div>
+          <div className="col">
+            <FutureWeather data={forecastData[2]} />
+          </div>
+          <div className="col">
+            <FutureWeather data={forecastData[3]} />
+          </div>
+          <div className="col">
+            <FutureWeather data={forecastData[4]} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    let apiKey = `c00b6e3e1cc217d87916a8b794f7ca77`;
+    let city = props.cityForecast;
+    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(showForecast);
+    return null;
+  }
 }
 
 export default WeatherForecast;

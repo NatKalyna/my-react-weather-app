@@ -2,9 +2,9 @@ import React from "react";
 
 function Footer() {
   return (
-    <div class="footer">
+    <div className="footer">
       <a
-        href="https://github.com/NatKalyna/vanilla-weather-app"
+        href="https://github.com/NatKalyna/my-react-weather-app"
         rel="noreferrer"
         target="_blank"
       >
