@@ -1,5 +1,10 @@
 import React from "react";
+
 import FormatedDate from "./FormatedDate";
+import WeatherIcon from "./WeatherIcon";
+import WeatherTemperature from "./WeatherTemperature";
+
+import "./Header.css";
 
 function Header(props) {
   return (
@@ -8,22 +13,32 @@ function Header(props) {
         <div className="col-4">
           <ul className="indicator">
             <li>
-              💧Humidity: <span>{props.data.humidity}</span> %
+              💧Humidity:{" "}
+              <span>
+                {" "}
+                {""}
+                {Math.round(props.data.humidity)}
+              </span>{" "}
+              %
             </li>
             <li>
-              💨Wind: <span>{props.data.wind}</span> km/h
+              💨Wind:{" "}
+              <span>
+                {""}
+                {Math.round(props.data.wind)}
+              </span>{" "}
+              km/h
             </li>
           </ul>
         </div>
         <div className="col-4">
           <div className="mainTemperature">
-            <span>{Math.round(props.data.main.temperature)}</span>
-            <span className="celsius">°C</span>
-            <span className="separator">|</span>
-            <span className="fahrenheit">°F</span>
+            <span>
+              <WeatherTemperature celsius={props.data.temperature} />
+            </span>
           </div>
-          <div>
-            <img src={props.data.icon} alt={props.data.description} />
+          <div className="weatherIcon">
+            <WeatherIcon code={props.data.icon} />
           </div>
         </div>
         <div className="col-4">
